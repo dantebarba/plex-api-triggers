@@ -1,0 +1,3 @@
+PlexAPI==4.9.2
+websocket-client
+tautulli
