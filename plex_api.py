@@ -15,18 +15,13 @@ from plexapi.server import PlexServer
 class PlexEventHandler(object):
     """ PlexEventHnadler """
 
-    def __init__(self):
-        self.baseurl = os.getenv("PLEX_BASE_URL")
-        self.token = os.getenv("PLEX_CLAIM")
+
+    def __init__(self, baseurl=os.getenv("PLEX_BASE_URL"), token=os.getenv("PLEX_CLAIM"), threshold_in_milis=8*60000, time_sleep=10):
+        self.baseurl = baseurl
+        self.token = token
         self.plex = PlexServer(self.baseurl, self.token)
-        self.threshold_in_milis =  8 * 60000
-
-    def alert_callback(self, data):
-        print(data)
-
-    def alert_listener(self):
-        alert_listener = self.plex.startAlertListener(self.alert_callback)
-        alert_listener.run()
+        self.threshold_in_milis = threshold_in_milis
+        self.time_sleep = time_sleep
     
     def notify_credits_event(self, session):
         logging.info("Sending credits alert")
@@ -68,4 +63,4 @@ class PlexEventHandler(object):
         logging.info("Polling has started")
         while True:
             self.get_activity()
-            time.sleep(10)
+            time.sleep(self.TIME_SLEEP)
