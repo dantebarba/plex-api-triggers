@@ -1,13 +1,12 @@
-
-   
 FROM python:3.8.12-alpine
 
-ENV PLEX_BASE_URL="https://plex.dantebarba.com.ar"
-ENV PLEX_CLAIM="zEa51vZ6PRNvQeN-pVyN"
-ENV TAUTULLI_API_KEY="d3f7db59fbfc48429732417f80e57007"
-ENV HA_KEY="646b533014c7160b9c7092b654887a8fe8df401878782d86fbaf523b84700870"
-ENV HA_URL=http://depto.dantebarba.com.ar:8123
-ENV TAUTULLI_API_URL=https://tautulli.papini.dantebarba.com.ar
+ENV PLEX_BASE_URL=""
+ENV PLEX_CLAIM=""
+ENV TAUTULLI_API_KEY=""
+ENV HA_KEY=""
+ENV HA_URL=""
+ENV TAUTULLI_API_URL=""
+ENV POLLING_TIME_SLEEP=15
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -17,9 +16,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
-# Expose the Flask port
-EXPOSE 5000
+RUN chmod +x __init__.py
 
-RUN chmod +x app.py
-
-CMD [ "python", "./app.py" ]
+CMD [ "python", "./__init__.py" ]
