@@ -27,7 +27,7 @@ class PlexEventHandler(object):
         self.token = token
         self.plex = PlexServer(self.baseurl, self.token)
         self.threshold_in_milis = threshold_in_milis
-        self.time_sleep = time_sleep
+        self.time_sleep = int(time_sleep)
 
     def notify_credits_event(self, session):
         logging.info("Sending credits alert")
@@ -93,4 +93,4 @@ class PlexEventHandler(object):
         logging.info("Polling has started")
         while True:
             self.get_activity()
-            time.sleep(self.time_sleep)
+            time.sleep(int(self.time_sleep))
