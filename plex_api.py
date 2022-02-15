@@ -28,6 +28,7 @@ class PlexEventHandler(object):
         self.plex = PlexServer(self.baseurl, self.token)
         self.threshold_in_milis = threshold_in_milis
         self.time_sleep = int(time_sleep)
+        self.anti_flood_time = int(os.getenv("ANTI_FLOOD_TIME", 60))
 
     def notify_credits_event(self, session):
         logging.info("Sending credits alert")
@@ -96,4 +97,5 @@ class PlexEventHandler(object):
                 self.get_activity()
             except Exception as e:
                 logging.exception("An error has ocurred during polling")
+                time.sleep(int(self.anti_flood_time))
             time.sleep(int(self.time_sleep))
