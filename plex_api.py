@@ -92,5 +92,8 @@ class PlexEventHandler(object):
     def start_polling(self):
         logging.info("Polling has started")
         while True:
-            self.get_activity()
+            try:
+                self.get_activity()
+            except Exception as e:
+                logging.exception("An error has ocurred during polling")
             time.sleep(int(self.time_sleep))
